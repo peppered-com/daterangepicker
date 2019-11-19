@@ -1,3 +1,7 @@
+/*
+    Peppered
+    Forked from https://github.com/dangrossman/daterangepicker to selectively apply patches
+*/
 /**
 * @version: 3.0.5
 * @author: Dan Grossman http://www.dangrossman.info/
