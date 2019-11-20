@@ -1021,7 +1021,10 @@
 
         updateFormInputs: function() {
 
-            if (this.singleDatePicker || (this.endDate && (this.startDate.isBefore(this.endDate) || this.startDate.isSame(this.endDate)))) {
+            if (
+                (this.singleDatePicker && ! this.singleRangePicker) ||
+                (this.endDate && (this.startDate.isBefore(this.endDate) || this.startDate.isSame(this.endDate)))
+            ) {
                 this.container.find('button.applyBtn').prop('disabled', false);
             } else {
                 this.container.find('button.applyBtn').prop('disabled', true);
