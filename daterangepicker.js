@@ -558,6 +558,11 @@
                     return;
                 }
 
+                // in single range mode it is very disorienting if the date picker jumps to the start date
+                if (this.singleDatePicker && this.singleRangePicker && this.leftCalendar.month && this.rightCalendar.month) {
+                    return;
+                }
+
                 this.leftCalendar.month = this.startDate.clone().date(2);
                 if (!this.linkedCalendars && (this.endDate.month() != this.startDate.month() || this.endDate.year() != this.startDate.year())) {
                     this.rightCalendar.month = this.endDate.clone().date(2);
