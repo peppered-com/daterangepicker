@@ -46,6 +46,7 @@
         this.autoApply = false;
         this.singleDatePicker = false;
         this.singleRangePicker = false;
+        this.endDateFallback = false;
         this.showDropdowns = false;
         this.minYear = moment().subtract(100, 'year').format('YYYY');
         this.maxYear = moment().add(100, 'year').format('YYYY');
@@ -184,6 +185,9 @@
 
         if (typeof options.endDate === 'object')
             this.endDate = moment(options.endDate);
+
+        if (typeof options.endDateFallback === 'object')
+            this.endDateFallback = moment(options.endDateFallback);
 
         if (typeof options.minDate === 'object')
             this.minDate = moment(options.minDate);
@@ -1028,6 +1032,7 @@
 
             if (
                 (this.singleDatePicker && ! this.singleRangePicker) ||
+                (this.singleDatePicker && this.singleRangePicker && this.endDateFallback) ||
                 (this.endDate && (this.startDate.isBefore(this.endDate) || this.startDate.isSame(this.endDate)))
             ) {
                 this.container.find('button.applyBtn').prop('disabled', false);
@@ -1154,8 +1159,12 @@
 
             //incomplete date selection, revert to last values
             if (!this.endDate) {
-                this.startDate = this.oldStartDate.clone();
-                this.endDate = this.oldEndDate.clone();
+                if (this.endDateFallback && this.startDate) {
+                    this.endDate = this.endDateFallback;
+                } else {
+                    this.startDate = this.oldStartDate.clone();
+                    this.endDate = this.oldEndDate.clone();
+                }
             }
 
             //if a new date range was selected, invoke the user callback function
