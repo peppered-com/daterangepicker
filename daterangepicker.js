@@ -1222,8 +1222,8 @@
                 this.showCalendars();
             } else {
                 var dates = this.ranges[label];
-                this.startDate = dates[0];
-                this.endDate = dates[1];
+                this.setStartDate(dates[0]);
+                this.setEndDate(dates[1]);
 
                 if (!this.timePicker) {
                     this.startDate.startOf('day');
@@ -1232,7 +1232,10 @@
 
                 if (!this.alwaysShowCalendars)
                     this.hideCalendars();
-                this.clickApply();
+
+                this.updateCalendars();
+                if (this.autoApply)
+                    this.clickApply();
             }
         },
 
